@@ -1,0 +1,57 @@
+name: hello-hub
+desc: hello-hub
+runbooks:
+- name: Pod-Pending
+  desc: Runbook for Pod level CrashLoopBackOff and ImagePullBackOff
+  selectors:
+  - type: labelSelector
+    selector: app=image-pull-failure-pod
+  - type: jsonPathSelector
+    selector: '{.status.phase}=Pending'
+  - type: jsonPathSelector
+    selector: '{.spec.replica}=1'
+  - type: jsonPathSelector
+    selector: '{.kind}=pod'
+  doc: backoff/pod-runbook.md
+  contacts:
+  - name: Vinothini Raju
+    email: vinothini@gopaddle.io
+    role: Developer
+- name: Event-Pulling
+  desc: Runbook for ImagePullBackOff event
+  selectors:
+  - type: jsonPathSelector
+    selector: '{.involvedObject.kind}=Pod'
+  - type: jsonPathSelector
+    selector: '{.reason}=BackOff'
+  - type: jsonPathSelector
+    selector: '{.type}=Normal'
+  doc: backoff/event-runbook.md
+  contacts:
+  - name: Vinothini Raju
+    email: vinothini@gopaddle.io
+    role: Developer
+- name: demo
+  desc: demo
+  selectors:
+  - type: labelSelector
+    selector: kubernetes.io/bootstrapping=rbac-defaults
+  - type: jsonPathSelector
+    selector: '{.apiVersion}=rbac.authorization.k8s.io/v1'
+  - type: jsonPathSelector
+    selector: '{.kind}=ClusterRole'
+  - type: jsonPathSelector
+    selector: '{.metadata.name}=cluster-admin'
+  doc: backoff/demo.md
+- name: test
+  desc: test
+  selectors:
+  - type: labelSelector
+    selector: kubernetes.io/bootstrapping=rbac-defaults
+  - type: jsonPathSelector
+    selector: '{.apiVersion}=rbac.authorization.k8s.io/v1'
+  - type: jsonPathSelector
+    selector: '{.kind}=ClusterRole'
+  - type: jsonPathSelector
+    selector: '{.metadata.name}=cluster-admin'
+  doc: test/test.md
