@@ -1,0 +1,9 @@
+name: hello-hub
+desc: hello-hub
+runbooks:
+- name: runbook-1
+  desc: runbook-1
+  selectors:
+  - type: labelSelector
+    selector: k8s-app=kube-dns
+  doc: demo/runbook-1.md
