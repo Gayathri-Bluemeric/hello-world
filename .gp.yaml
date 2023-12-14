@@ -7,3 +7,9 @@ runbooks:
   - type: labelSelector
     selector: k8s-app=kube-dns
   doc: demo/runbook-1.md
+- name: runbook-2
+  desc: runbook-2
+  selectors:
+  - type: labelSelector
+    selector: k8s-app=kube-dns
+  doc: demo/runbook-2.md
